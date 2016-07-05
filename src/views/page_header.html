@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.1, maximum-scale=2.0" />
+    <meta name="keywords" content="NTUSA, 台大, 臺大, 學生會, 選委會, 選舉罷免執行委員會">
+    <title>
+        <?!= declareTitle() ?>選舉登記 - 臺大學生會選委會
+    </title>
+    <?!= include('pure'); ?>
+    <?!= include('style'); ?>
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	  <![endif]-->
+    <?!= include('script'); ?>
+</head>
+
+<body>
+    <header id="page-header">
+        <h1>
+						<img src="<?!= siteSrc() ?>/img/EREC_logo.png" alt="國立臺灣大學學生會選舉罷免執行委員會" class="selfset-2-3"/><br/>
+						<?!= electionTitle() ?><br/>
+						<span id="form-title"><?!= declareTitle() ?>選舉登記</span>
+				</h1>
+    </header>

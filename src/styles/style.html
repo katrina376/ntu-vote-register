@@ -1,0 +1,173 @@
+<style>
+	/* NTUSA EREC site for 104-2 Election */
+
+	*,
+	.pure-g [class *="pure-u"] {
+		position: relative;
+		font-family: Georgia, "Microsoft JhengHei", sans-serif;
+		-webkit-box-sizing: border-box !important;
+		-moz-box-sizing: border-box !important;
+		box-sizing: border-box !important;
+	}
+
+	body {
+		width: 100%;
+		color: #212121;
+		font-size: 16px;
+	}
+
+	a {
+		color: <?!=settingBGColor() ?>;
+	}
+
+	a:hover {
+		color: #CCC;
+		text-decoration: none;
+	}
+
+	.color-reverse * {
+		color: #fff;
+	}
+
+	.color-reverse a {
+		color: #fff;
+		text-decoration: underline;
+	}
+
+	.color-reverse a:hover {
+		color: #CCC;
+		text-decoration: none;
+	}
+
+	.selfset-2-3 {
+		position: relative;
+		width: 66.6667%;
+		margin: 0 auto;
+	}
+
+	.page-section {
+		padding: 2em 0;
+	}
+
+	form {
+		margin: 1em auto !important;
+	}
+
+	#page-header {
+		margin: 0;
+		background: <?!=settingBGColor() ?>;
+		text-align: center;
+		width: 100%;
+		padding: 1em 0;
+		color: #FFF;
+		overflow: hidden;
+	}
+
+	#page-header h1 {
+		line-height: 2;
+	}
+
+	#page-header h1 #form-title {
+		font-size: 150%;
+	}
+
+	#page-header img {
+		max-width: 640px;
+	}
+
+	#result {
+		font-size: 2em;
+		padding: 1em 0;
+	}
+
+	.warning {
+		margin: 1em auto;
+		background: #EEE;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		-ms-border-radius: 8px;
+		border-radius: 8px;
+		padding: 1em 2em;
+	}
+
+	.pure-controls {
+		width: 75% !important;
+		margin: 1em 1em 1em auto !important;
+	}
+
+	.pure-control-group label {
+		width: 25% !important;
+		padding-right: 2.5em !important;
+		margin-right: -1.5em !important;
+	}
+
+	.pure-control-group .pure-input-1 {
+		width: 75% !important;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.subtitle::before {
+		content: ' ※ ';
+	}
+
+	.subtitle::after {
+		content: ' ------------------------ ';
+	}
+
+	.preview {
+		display: none;
+		max-height: 32em;
+		max-width: 100%;
+	}
+
+	.pure-controls.attach {
+		margin-top: 0 !important;
+		padding-bottom: 1em !important;
+	}
+
+	.comment {
+		font-size: 80%;
+	}
+
+	.pure-button-primary {
+		background: <?!=settingBGColor() ?> !important;
+	}
+
+	.pure-button-primary:hover {
+		background: #fff !important;
+		color: <?!=settingBGColor() ?> !important;
+		border: <?!=settingBGColor() ?> 2px solid !important;
+		margin: -2px !important;
+	}
+
+	#page-footer {
+		background: <?!=settingBGColor() ?>;
+		text-align: left;
+	}
+
+	@media screen and (max-width: 960px) {
+		.selfset-2-3 {
+			width: 576px;
+			margin: 0 auto;
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.selfset-2-3 {
+			width: 96%;
+			margin: 0 auto;
+		}
+		.comment {
+			padding-left: 0;
+		}
+	}
+
+	@media screen and (max-width: 468px) {
+		.pure-controls,
+		.pure-input-1,
+		.pure-control-group label {
+			width: 100% !important;
+		}
+	}
+</style>
