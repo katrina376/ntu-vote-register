@@ -1,127 +1,115 @@
 <?!= include('page_header'); ?>
 <section class="page-section">
+  <div id="declare">
     <div id="declareInfo" class="warning selfset-2-3">
-        <p>參選資格：
-            <?!= getQualification(); ?>
-        </p>
-        <p>應選名額：
-            <?!= getSeat(); ?>
-        </p>
+      <p>參選資格：
+        <?!= getQualification(); ?>
+      </p>
+      <p>應選名額：
+        <?!= getSeats(); ?>
+      </p>
     </div>
     <form enctype="multipart/form-data" id="declareForm" onsubmit="handleFormSubmit(this)" class="pure-form pure-form-aligned selfset-2-3">
-        <fieldset>
-            <input type="hidden" name="tid" value="<?!= getTid() ?>" />
-            <div class="pure-control-group">
-                <label for="Name">姓名</label>
-                <input name="Name" type="text" placeholder="例如：陳亮妍" class="pure-input-1" required/>
+      <fieldset>
+        <input type="hidden" id="tid" name="tid" value="<?!= getTid() ?>" />
+        <div class="pure-control-group">
+          <label for="Name">姓名</label>
+          <input id="Name" name="Name" type="text" placeholder="例如：陳亮妍" class="pure-input-1" required/>
+        </div>
+        <div class="pure-control-group">
+          <label for="DepartmentGrade">系級</label>
+          <input id="DepartmentGrade" name="DepartmentGrade" type="text" placeholder="例如：水利工程學系五年級" class="pure-input-1" required/>
+        </div>
+        <div class="pure-control-group">
+          <label for="StudentId">學號</label>
+          <input id="StudentId" name="StudentId" type="text" placeholder="例如：B02394567" class="pure-input-1" required/>
+        </div>
+        <div class="pure-control-group">
+          <label for="Phone">連絡電話</label>
+          <input id="Phone" name="Phone" type="tel" placeholder="例如：0912-345-678" class="pure-input-1" required/>
+        </div>
+        <div class="pure-control-group">
+          <label for="Email">常用電子郵件信箱</label>
+          <input id="Email" name="Email" type="email" placeholder="例如：b02394567@hmail.com" class="pure-input-1" required/>
+        </div>
+        <div class="pure-control-group">
+          <label for="College">參選院別</label>
+          <select id="College" name="College">
+            <option selected disabled>--請選擇學院--</option>
+            <option value="文學院">文學院</option>
+            <option value="理學院">理學院</option>
+            <option value="社會科學院">社會科學院</option>
+            <option value="醫學院">醫學院</option>
+            <option value="工學院">工學院</option>
+            <option value="生物資源暨農學院">生物資源暨農學院</option>
+            <option value="管理學院">管理學院</option>
+            <option value="公共衛生學院">公共衛生學院</option>
+            <option value="電機資訊學院">電機資訊學院</option>
+            <option value="法律學院">法律學院</option>
+            <option value="生命科學院">生命科學院</option>
+            <option value="共同教育中心">共同教育中心</option>
+          </select>
+          </div>
+          <div class="pure-control-group">
+            <label for="Experience">經歷</label>
+            <textarea id="Experience" name="Experience" class="pure-input-1" rows="4" required/></textarea>
+          </div>
+          <div class="pure-control-group">
+            <label for="Politics">政見</label>
+            <textarea id="Politics" name="Politics" class="pure-input-1" rows="4" required/></textarea>
+          </div>
+          <div class="pure-control-group">
+            <label for="Enrollment">在學證明</label>
+            <input id="Enrollment" name="Enrollment" type="file" class="pure-input-1" onchange="loadFile(event, 'Enrollment')" required/>
+          </div>
+          <div class="pure-controls attach">
+            <div class="comment">
+              加蓋註冊組章戳之學生證影本的檔案，或是在學證明的檔案 <br/>
+              在學證明可以在登入 NTU ePo（<a href="https://if163.aca.ntu.edu.tw/eportfolio/" target="_blank">https://if163.aca.ntu.edu.tw/eportfolio/</a>）後下載取得 <br/>
+              <img src="#" id="preview-Enrollment" alt="非圖檔格式，無法顯示預覽" class="preview" />
             </div>
-            <div class="pure-control-group">
-                <label for="DepartmentGrade">系級</label>
-                <input name="DepartmentGrade" type="text" placeholder="例如：水利工程學系五年級" class="pure-input-1" required/>
+          </div>
+          <div class="pure-control-group">
+            <label for="Photo">相片</label>
+            <input id="Photo" name="Photo" type="file" placeholder="請選擇檔案" class="pure-input-1" onchange="loadFile(event, 'Photo')" required/>
+          </div>
+          <div class="pure-controls attach">
+            <div class="comment">
+              相片之格式為 2 吋大小（3.5×4.5cm），解析度不得低於 300 dpi；或提供 420 × 540 像素以上之檔案 <br/>
+              <img src="#" id="preview-Photo" alt="非圖檔格式，無法顯示預覽" class="preview" />
             </div>
-            <div class="pure-control-group">
-                <label for="StudentId">學號</label>
-                <input name="StudentId" type="text" placeholder="例如：B02394567" class="pure-input-1" required/>
+          </div>
+          <? if (getPresentations()) { ?>
+          <div class="pure-control-group">
+            <label for="Presentation">欲參與之政見發表場次（可複選）</label>
+            <div class="pure-input-1 check">
+              <input id="PresentationDummy" type="hidden" value="x" name="Presentation"/>
+              <? for (var i = 0; i != getPresentations().length; ++i) { ?>
+              <input name="Presentation" type="checkbox" value="<?!= getPresentations()[i][0] ?>" />
+              <?!= getPresentations()[i][1] ?><br/>
+              <? } ?>
             </div>
-            <div class="pure-control-group">
-                <label for="Phone">連絡電話</label>
-                <input name="Phone" type="tel" placeholder="例如：0912-345-678" class="pure-input-1" required/>
-            </div>
-            <div class="pure-control-group">
-                <label for="Email">常用電子郵件信箱</label>
-                <input name="Email" type="email" placeholder="例如：b02394567@hmail.com" class="pure-input-1" id="emailAddress" required/>
-            </div>
-            <div class="pure-control-group">
-                <label for="College">參選院別</label>
-                <select name="College">
-                    <option selected disabled>--請選擇學院--</option>
-                    <option value="文學院">文學院</option>
-                    <option value="理學院">理學院</option>
-                    <option value="社會科學院">社會科學院</option>
-                    <option value="醫學院">醫學院</option>
-                    <option value="工學院">工學院</option>
-                    <option value="生物資源暨農學院">生物資源暨農學院</option>
-                    <option value="管理學院">管理學院</option>
-                    <option value="公共衛生學院">公共衛生學院</option>
-                    <option value="電機資訊學院">電機資訊學院</option>
-                    <option value="法律學院">法律學院</option>
-                    <option value="生命科學院">生命科學院</option>
-                    <option value="共同教育中心">共同教育中心</option>
-                </select>
-            </div>
-            <div class="pure-control-group">
-                <label for="Experience">經歷</label>
-                <textarea name="Experience" class="pure-input-1" rows="4" required/></textarea>
-            </div>
-            <div class="pure-control-group">
-                <label for="Politics">政見</label>
-                <textarea name="Politics" class="pure-input-1" rows="4" required/></textarea>
-            </div>
-            <div class="pure-control-group">
-                <label for="Enrollment">在學證明</label>
-                <input name="Enrollment" type="file" class="pure-input-1" onchange="loadFile(event, 'Enrollment')" required/>
-            </div>
-            <div class="pure-controls attach">
-                <div class="comment">
-                    加蓋註冊組章戳之學生證影本的檔案，或是在學證明的檔案
-                    <br/> 在學證明可以在登入NTU ePo（<a href="https://if163.aca.ntu.edu.tw/eportfolio/" target="_blank">https://if163.aca.ntu.edu.tw/eportfolio/</a>）後下載取得
-                    <br/>
-                    <img src="#" id="preview-Enrollment" alt="非圖檔格式，無法顯示預覽" class="preview" />
-                </div>
-            </div>
-            <div class="pure-control-group">
-                <label for="Photo">相片</label>
-                <input name="Photo" type="file" placeholder="請選擇檔案" class="pure-input-1" onchange="loadFile(event, 'Photo')" required/>
-            </div>
-            <div class="pure-controls attach">
-                <div class="comment">
-                    相片之格式為2吋大小（3.5×4.5cm），解析度不得低於300dpi；或提供420×540像素以上之檔案
-                    <br/>
-                    <img src="#" id="preview-Photo" alt="非圖檔格式，無法顯示預覽" class="preview" />
-                </div>
-            </div>
-            <?
-																																																																																																																																																																														          if (presentationList())
-																																																																																																																																																																																            {
-																																																																																																																																																																																			        ?>
-                <div class="pure-control-group">
-                    <label for="Presentation">欲參與之政見發表場次（可複選）</label>
-                    <div class="pure-input-1 check">
-                        <?
-																																																																																																																																																																																														              for (var i = 0; i != presentationList().length; ++i)
-																																																																																																																																																																																																	              {
-																																																																																																																																																																																																				            ?>
-                            <input name="Presentation" type="checkbox" value="<?!= presentationList()[i][0] ?>" />
-                            <?!= presentationList()[i][1] ?> -
-                                <?!= presentationList()[i][2] ?>
-                                    <br/>
-                                    <?
-																																																																																																																																																																																																												              }
-																																																																																																																																																																																																															            ?>
-                    </div>
-                </div>
-                <?
-																																																																																																																																																																																																																								            }
-																																																																																																																																																																																																																											        ?>
-                    <div class="warning">
-                        <h3>注意事項：</h3>
-                        <ol>
-                            <li>同意以上資訊提供選委會製作選舉公告二（政見與經歷）。</li>
-                            <li>表單送出後即代表登記完成，選委會不受理撤回登記。</li>
-                            <li>如需修改部分內容，請於5/1晚間23:59登記截止前以電子郵件聯絡選委會辦理，逾期不予受理。</li>
-                            <li>競選期間為自選舉公告二發布起(5/9)至5/25晚間23:59止。</li>
-                            <li>表單送出後會出現完成登記的提示頁面。</li>
-                        </ol>
-                    </div>
-                    <div class="pure-controls">
-                        <label for="Right" class="pure-checkbox">
-                            <input id="cb" name="Right" type="checkbox" value="TRUE" /> 已詳閱以上說明。
-                        </label>
-                        <input class="pure-button pure-button-primary" type="submit" name="submitted" id="sendbtn" value="送出" />
-                        <div id="waiting"></div>
-                    </div>
+          </div>
+          <? } ?>
+          <div class="warning">
+            <h3>注意事項：</h3>
+            <ol>
+              <? for (var i = 0; i != getWarnings().length; ++i) { ?>
+              <li><?!= getWarnings()[i] ?></li>
+              <? } ?>
+              <li>表單送出後會出現完成登記的提示頁面。</li>
+            </ol>
+          </div>
+          <div class="pure-controls">
+            <label for="Right" class="pure-checkbox">
+              <input id="Right" name="Right" type="checkbox" value="TRUE" /> 已詳閱以上說明。
+            </label>
+            <input class="pure-button pure-button-primary" type="submit" name="submitted" id="sendbtn" value="送出" />
+            <div id="waiting"></div>
+          </div>
         </fieldset>
     </form>
-    <div id="result" class="selfset-2-3"></div>
+  </div>
+  <div id="result" class="selfset-2-3"></div>
 </section>
 <?!= include('page_footer'); ?>
