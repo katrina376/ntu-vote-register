@@ -1,91 +1,65 @@
 <script>
-    // Produce unique key.
-    var key = ( function()
-    {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (var i = 0; i < 7; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        return text;
-    })();
+  var $ = function (s) {
+		return document.querySelector(s);
+  }
 
-    // Prevent forms from submitting.
-    function preventFormSubmit()
-    {
-        var forms = document.querySelectorAll('form');
-        for (var i = 0; i < forms.length; i++) {
-            forms[i].innerHTML = '<input name="Key" type="hidden" value="' + key + '" />' + forms[i].innerHTML; // insert Key
-            forms[i].addEventListener('submit', function(e)
-            {
-                e.preventDefault();
-            });
-        }
+  var $$ = function (s) {
+    return document.querySelectorAll(s);
+  }
+
+  // Produce unique key.
+  var key = (function() {
+    var text = '';
+    var keychars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < 7; i++)
+      text += keychars.charAt(Math.floor(Math.random() * keychars.length));
+    return text;
+  })();
+
+  // Prevent forms from submitting.
+  function preventFormSubmit() {
+    var forms = $$('form');
+    for (var i = 0; i < forms.length; i++) {
+      forms[i].innerHTML = '<input id="Key" name="Key" type="hidden" value="' + key + '" />' + forms[i].innerHTML; // insert Key
+      forms[i].addEventListener('submit', function(ev) {
+        ev.preventDefault();
+      });
     }
-    window.addEventListener('load', preventFormSubmit);
+  }
+  window.addEventListener('load', preventFormSubmit);
 
-    // Update previews of enrollment and candidate's photo.
-    function loadFile(event, targetid)
-    {
-        var output = document.getElementById('preview-' + targetid);
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.style.display = "block";
+  // Update previews of enrollment and candidate's photo.
+  function loadFile(event, targetid) {
+    var output = $('#preview-' + targetid);
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.style.display = "block";
+  }
+
+  // Update spreadsheet and upload files
+  function handleFormSubmit(formObject) {
+    if ($('#Right').checked) {
+      var id = formObject.elements[2].value;
+      $('#waiting').innerHTML += "檔案上傳中，請稍後";
+      $('#sendbtn').setAttribute('disabled', true);
+
+      google.script.run.withFailureHandler(onFailure)
+                       .withSuccessHandler(onSuccess)
+                       .processForm(formObject);
+
+      setInterval(function() {
+        $('#waiting').innerHTML += "…";
+      }, 3000);
+    } else {
+      alert("注意事項未打勾！");
     }
+  }
 
-    // Update spreadsheet and upload files
-    function handleFormSubmit(formObject)
-    {
-        if (document.getElementById('cb').checked)
-        {
-            var id = formObject.elements[2].value;
-            if (timeexpire(id))
-                expire();
-            else
-            {
-                document.getElementById('waiting').innerHTML += "檔案上傳中，請稍後";
-                document.getElementById('sendbtn').setAttribute('disabled', true);
-                google.script.run.withSuccessHandler(updateUrl).processForm(formObject);
-                setInterval(function() {
-                    document.getElementById('waiting').innerHTML += "…";
-                }, 3000);
-            }
-        }
-        else
-            alert("注意事項未打勾！");
-    }
+  function onSuccess(arc) {
+    $('#declare').style.display = "none";
+    $('#result').innerHTML += "選委會將於資格審查後，寄發確認信件與保證金繳納方式至您填寫的信箱。請注意：繳交保證金才是完成登記手續！";
+  }
 
-    function updateUrl(url)
-    {
-        document.getElementById('declareInfo').style.display = "none";
-        document.getElementById('declareForm').style.display = "none";
-        document.getElementById('result').innerHTML += "感謝您的登記！<br/>選委會將於資格審查後寄發確認信件至您登記的常用信箱（" + document.getElementById('emailAddress').value + "）。";
-    }
-
-    function timeexpire(i)
-    {
-        var now = new Date();
-        var expire;
-        if (i == 12)
-            expire = new Date(2016, 4, 5, 0, 0, 0, 0);
-        else if (i == 14)
-            expire = new Date(2016, 4, 6, 0, 0, 0, 0);
-        else
-            expire = new Date(2016, 4, 2, 0, 0, 0, 0);
-
-        if (now >= expire)
-            return true;
-        else
-            return false;
-    }
-
-    function expire()
-    {
-        document.getElementById('declareInfo').style.display = "none";
-        document.getElementById('declareForm').style.display = "none";
-        document.getElementById('result').innerHTML += "超過登記期限，系統已經關閉。";
-    }
-
-    function onFailure(error)
-    {
-        alert("onFailure: " + error);
-    }
+  function onFailure(error) {
+    alert("onFailure: " + error);
+  }
 </script>
