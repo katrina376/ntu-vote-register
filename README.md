@@ -11,7 +11,7 @@ Released under [MIT License](https://github.com/katrina376/ntu-vote-register/blo
 必須在 Google Drive 上使用 GAS 專案檔運行。暫時沒時間寫匯出成 GAS 專案的工具。目前的解法是自己開 GAS 專案，然後把 `src/` 中的檔案（不分資料夾）一個一個複製貼上。請注意不要寫錯副檔名。
 
 ## Source Code Description
-### `scripts/config.gs`
+#### `scripts/config.gs`
 存放參數的檔案，以下為需要設定的參數名稱：
 + `DB_ID` : 作為原始資料庫的 Spreadsheet id
 + `DB_EXPORT_ID` : 完成審核後，匯出的資料庫的 Spreadsheet id
