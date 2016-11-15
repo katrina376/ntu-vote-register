@@ -1,3 +1,4 @@
+/* FUNCTIONS */
 function processVerification() {
   var timestamp = new Date();
   var toc = rangelist(DB_ID, TOC_NAME);
@@ -74,13 +75,14 @@ function processVerification() {
           }
 
           doc.getBody().replaceText("{{ " + item + " }}", text);
-        } else if (itemname == 'College')
+        } else if (itemname == 'College') {
           title_text += "（" + data[key][item].getValue() + "）";
-        else
+        } else {
           doc.getBody().replaceText("{{ " + item + " }}", data[key][item].getValue());
+        }
       }
 
-      doc.getBody().replaceText('{{ Election }}', title);
+      doc.getBody().replaceText('{{ Election }}', title_text);
       doc.getBody().replaceText('{{ Qualification }}', toc[id]['Qualification'].getValue());
       doc.saveAndClose();
       data[key]['Update'].setValue(true);

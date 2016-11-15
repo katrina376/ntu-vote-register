@@ -135,13 +135,13 @@ function processForm(f) {
         row.push('https://drive.google.com/open?id=' + file.getId());
       } else if (itemname === 'Phone') {
         var phone = '';
-        var raw = eval("f." + items[i] + ".toString()");
+        var raw = eval("f." + items[i] + ".toString().split('')");
 
-        for (var d in raw.split('')) {
-          if ((phone.length === 0) && (d !== "0")) phone += '0';
-          if ((phone.length === 4) && (d !== '-')) phone += '-';
-          if ((phone.length === 8) && (d !== '-')) phone += '-';
-          phone += d;
+        for (var d in raw) {
+          if ((phone.length === 0) && (raw[d] !== "0")) phone += '0';
+          if ((phone.length === 4) && (raw[d] !== '-')) phone += '-';
+          if ((phone.length === 8) && (raw[d] !== '-')) phone += '-';
+          phone += raw[d];
         }
 
         row.push(phone);
