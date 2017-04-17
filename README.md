@@ -2,13 +2,13 @@
 Developed for [Election &amp; Recalling Execution Community, NTU Students Association](https://vote.ntustudents.org/)  
 Designed by [Hao-Yung Chan (katrina376)](https://github.com/katrina376/), 2016 Spring Semester  
 Upgraded to v2.x, 2016 Fall Semester  
-Upgraded to v3.x, 2017 Spring Semester
+Upgraded to v3.x, 2017 Spring Semester  
 Powered by [Google Apps Script](https://developers.google.com/apps-script/)  
 Released under [MIT License](https://github.com/katrina376/ntu-vote-register/blob/master/LICENSE)
 
 由[國立臺灣大學學生會選舉罷免執行委員會](https://vote.ntustudents.org/) 104-2 委員 [Hao-Yung (Katrina) Chan](https://github.com/katrina376/) 開發，於 104 學年度第二學期第一次使用，並於 105 學年度第一學期改版至 v2.x，第二學期改版至 v3.x。使用 [Google Apps Script](https://developers.google.com/apps-script/) 建置。本專案採用 [MIT 授權](https://github.com/katrina376/ntu-vote-register/blob/master/LICENSE)。
 
-## Update Log of v3.x
+## Upgrade Log of v3.x
 1. 將審核文件輸出功能移至另一個專案進行。
 2. 新增 105-2 學生會暨自治組織聯合選舉的所有表單，包含：
   * 學生會會長
