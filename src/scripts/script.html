@@ -39,7 +39,7 @@
   function handleFormSubmit(formObject) {
     if ($('#Right').checked) {
       var id = formObject.elements[2].value;
-      $('#waiting').innerHTML += "檔案上傳中，請稍後";
+      $('#waiting').innerHTML += "檔案上傳中，請稍候";
       $('#sendbtn').setAttribute('disabled', true);
 
       google.script.run.withFailureHandler(onFailure)
@@ -56,7 +56,7 @@
 
   function onSuccess(arc) {
     $('#declare').style.display = "none";
-    $('#result').innerHTML += "選委會將於資格審查後，寄發確認信件與保證金繳納方式至您填寫的信箱。請注意：繳交保證金才是完成登記手續！";
+    $('#result').innerHTML += "選委會將於資格審查後，寄發確認信件與保證金繳納方式至您填寫的信箱。請注意：參選學生會會長、學生代表大會學生代表者，應繳交保證金，才是完成登記手續！";
   }
 
   function onFailure(error) {

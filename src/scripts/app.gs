@@ -22,7 +22,7 @@ function doGet(e) {
                       .evaluate()
                       .setSandboxMode(HtmlService.SandboxMode.IFRAME)
                       .setTitle(ELECTION_TITLE + " " + getDeclareTitle() + "選舉登記 - 臺大學生會選委會")
-                      .addMetaTag('viewport', 'width=device-width, initial-scale=1, user-scalable=yes');;
+                      .addMetaTag('viewport', 'width=device-width, initial-scale=1, user-scalable=yes');
   }
 }
 
@@ -115,7 +115,20 @@ function processForm(f) {
 
   for (var i = 0; i != items.length; ++i) {
     if (!items[i]) continue;
-    if (!eval("f." + items[i])) continue;
+
+    if (!eval("f." + items[i])){
+      if (items[i] === 'Mail') {
+        row.push('=HYPERLINK("' + VERIFY_APP + '?cmd=M&id=' + tid + '&k=' + f.Key + '","按我寄信")');
+      } else if (items[i] === 'Export') {
+        row.push('=HYPERLINK("' + VERIFY_APP + '?cmd=E&id=' + tid + '&k=' + f.Key + '","按我更新")');
+      } else if (items[i] === 'Preview') {
+        row.push('https://drive.google.com/open?id=' + file_verification.getId());
+      } else if (items[i] === 'SubmitTime') {
+        row.push(timestamp);
+      } else {
+        row.push('');
+      }
+    }
 
     /* Consider Joint Cases */
     var pname = (items[i].split('_').length > 1) ? (items[i].split('_')[0] + '_') : '';
@@ -162,10 +175,6 @@ function processForm(f) {
       }
     }
   }
-
-  row.push(timestamp);
-  row.push('https://drive.google.com/open?id=' + file_verification.getId());
-  row.push(false);
 
   file_verification.setName(docname);
   sheet.appendRow(row);
